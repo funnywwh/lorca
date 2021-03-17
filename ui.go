@@ -72,9 +72,18 @@ func New(url, dir string, width, height int, customArgs ...string) (UI, error) {
 		}
 		dir, tmpDir = name, name
 	}
+	maxwin := false
+	for _, v := range customArgs {
+		if v == " --start-maximized" {
+			maxwin = true
+			break
+		}
+	}
 	args := append(defaultChromeArgs, fmt.Sprintf("--app=%s", url))
 	args = append(args, fmt.Sprintf("--user-data-dir=%s", dir))
-	args = append(args, fmt.Sprintf("--window-size=%d,%d", width, height))
+	if !maxwin {
+		args = append(args, fmt.Sprintf("--window-size=%d,%d", width, height))
+	}
 	args = append(args, customArgs...)
 	args = append(args, "--remote-debugging-port=0")
 
