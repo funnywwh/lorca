@@ -74,7 +74,7 @@ func New(url, dir string, width, height int, customArgs ...string) (UI, error) {
 	}
 	maxwin := false
 	for _, v := range customArgs {
-		if v == " --start-maximized" {
+		if v == "--start-maximized" {
 			maxwin = true
 			break
 		}
